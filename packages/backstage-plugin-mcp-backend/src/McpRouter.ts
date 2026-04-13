@@ -12,7 +12,7 @@ import type {
   LoggerService,
   PermissionsService,
 } from '@backstage/backend-plugin-api';
-import type { ConfigApi } from '@backstage/config';
+import type { Config } from '@backstage/config';
 import type { CatalogClient } from '@backstage/catalog-client';
 
 import { registerCatalogTools } from './tools/catalog';
@@ -22,7 +22,7 @@ import { registerPermissionsTools } from './tools/permissions';
 
 export interface McpRouterOptions {
   logger: LoggerService;
-  config: ConfigApi;
+  config: Config;
   httpAuth: HttpAuthService;
   auth: AuthService;
   discovery: DiscoveryService;

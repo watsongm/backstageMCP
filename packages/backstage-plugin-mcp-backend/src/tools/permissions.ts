@@ -26,30 +26,22 @@ export function registerPermissionsTools(server: McpServer, opts: ToolOptions): 
       const credentials = credentialStore.getStore();
       if (!credentials) throw new Error('No credentials in context');
 
-      // Construct a basic permission. Resource permissions (those that accept
-      // a resourceRef) use type 'resource'; simple yes/no permissions use 'basic'.
-      // We infer from whether resource_ref was provided.
-      const perm = resource_ref
-        ? {
-            name: permissionName,
-            attributes: {},
-            type: 'resource' as const,
-            resourceType: 'catalog-entity',
-          }
-        : {
-            name: permissionName,
-            attributes: {},
-            type: 'basic' as const,
-          };
+      // Use basic permission type for inspection — works for the majority of
+      // named Backstage permissions. Resource-scoped checks are approximate
+      // (the result may differ from a full resource-permission evaluation).
+      const perm = {
+        name: permissionName,
+        attributes: {},
+        type: 'basic' as const,
+      };
 
       const [decision] = await permissions.authorize(
-        [{ permission: perm, ...(resource_ref ? { resourceRef: resource_ref } : {}) }],
+        [{ permission: perm }],
         { credentials },
       );
 
       return ok({
         permission: permissionName,
-        resourceRef: resource_ref,
         result: decision.result,
         allowed: decision.result === 'ALLOW',
       });

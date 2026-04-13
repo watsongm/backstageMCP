@@ -20,7 +20,7 @@ export const mcpPlugin = createBackendPlugin({
     env.registerInit({
       deps: {
         logger: coreServices.logger,
-        config: coreServices.config,
+        config: coreServices.rootConfig,
         httpRouter: coreServices.httpRouter,
         httpAuth: coreServices.httpAuth,
         auth: coreServices.auth,
