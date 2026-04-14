@@ -8,7 +8,8 @@
     "moduleResolution": "bundler",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "noEmit": true
   },
   "include": ["packages/*/src"],
   "exclude": ["node_modules", "packages/*/dist"]
